@@ -26,8 +26,8 @@ class Body {
 
   paint(context) {
     context.beginPath();
-    let x = this.x * zoomScale + xOffset;
-    let y = this.y * zoomScale + yOffset;
+    let x = this.x * zoomScale + centerX;
+    let y = this.y * zoomScale + centerY;
     context.arc(x, y, this.radius * zoomScale, 0, 2 * Math.PI, false);
     context.fillStyle = this.color.toString();
     context.fill();
@@ -39,6 +39,7 @@ class Body {
   	}
   }
 
+  // Euler
   static computeAttraction(p) {
     for (let i = 0; i < p.length; i++) {
       let forceSum = new Vector(0, 0);

@@ -1,7 +1,7 @@
 
 
-let xOffset = window.innerWidth / 2;
-let yOffset = window.innerHeight / 2;
+let centerX = window.innerWidth / 2;
+let centerY = window.innerHeight / 2;
 
 let steps = 0;
 let fps;

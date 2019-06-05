@@ -24,8 +24,8 @@ class MouseHandler {
     if (e.which == 2 || this.shiftPressed) {
       e.preventDefault();
       this.panning = true;
-      this.initOffsetX = offsetX;
-      this.initOffsetY = offsetY;
+      this.initOffsetX = centerX;
+      this.initOffsetY = centerY;
     }
   }
 
@@ -37,8 +37,8 @@ class MouseHandler {
         new Body(
           mass,
           new Vector(vx, vy),
-          (this.startX - xOffset) / zoomScale,
-          (this.startY - yOffset) / zoomScale
+          (this.startX - centerX) / zoomScale,
+          (this.startY - centerY) / zoomScale
         )
       );
       Body.paintBodies(particles, context);
@@ -51,13 +51,13 @@ class MouseHandler {
     this.currentX = e.clientX;
     this.currentY = e.clientY;
     if (this.panning) {
-      xOffset = this.initOffsetX + (this.currentX - this.startX);
-      yOffset = this.initOffsetY + (this.currentY - this.startY);
+      centerX = this.initOffsetX + (this.currentX - this.startX);
+      centerY= this.initOffsetY + (this.currentY - this.startY);
     }
   }
 
   mouseWheel(e) {
-    e.shiftKey ? this._zoom(e) : this._changeMass(e);
+    e.shiftKey ? this._zoom(e) : this._changeInitialMass(e);
     return mass;
   }
 
@@ -65,7 +65,7 @@ class MouseHandler {
     zoomScale *= e.deltaY < 0 ? ZOOM_FACTOR : 1 / ZOOM_FACTOR;
   }
 
-  _changeMass(e) {
+  _changeInitialMass(e) {
     mass *= e.deltaY < 0 ? MASS_FACTOR : 1 / MASS_FACTOR;
     if (mass > 32768) mass = 32768;
     if (mass < 2) mass = 2;
