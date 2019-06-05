@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css" />
+    <script src="../static/vue.js"></script>
+
+    <title>n-body problem</title>
+  </head>
+  <body>
+    <div id="app">
+      <canvas
+        id="canvas"
+        @mousedown="mouseDown($event)"
+        @mouseup="mouseUp($event)"
+        @mousemove="mouseMove($event)"
+        @wheel="mouseWheel($event)"
+      >
+      </canvas>
+      <div id="info">
+        <!--        <p id="particle-num">Bodies: 0</p>-->
+        <!--        <p id="gravity-const">Gravity Constant: 1</p>-->
+        <!--        <p id="tracking">Tracking: OFF</p>-->
+        <!--        <p id="mass-marker">Mass: 16</p>-->
+        <!--        <p id="help">Press H for instructions.</p>-->
+      </div>
+      <!--      <p id="instructions">-->
+      <!--        Click to place a body. <br />-->
+      <!--        Scroll or use arrow keys to change mass. <br />-->
+      <!--        Drag to give it a velocity vector. <br />-->
+      <!--        Press space to create a cloud.<br />-->
+      <!--        Press K to fill the screen.<br />-->
+      <!--        Middle-click or shift-click and drag to move the viewport.<br />-->
+      <!--        Shift-scroll to zoom.<br />-->
+      <!--        Press C to track the most massive object.<br />-->
+      <!--        Press D to delete all bodies not on the screen.<br />-->
+      <!--        Press Q/A to increase/decrease the gravity constant.<br />-->
+      <!--        Press P to pause/unpause.-->
+      <!--      </p>-->
+      <div id="steps">
+        <!--        <p id="fps">FPS: 60.00</p>-->
+      </div>
+    </div>
+
+    <script src="ui.js"></script>
+    <script src="MouseHandler.js"></script>
+    <script src="KeyboardHandler.js"></script>
+    <script src="Body.js"></script>
+    <script src="utils.js"></script>
+    <script src="CanvasHandler.js"></script>
+    <script src="vueapp.js"></script>
+  </body>
+</html>
