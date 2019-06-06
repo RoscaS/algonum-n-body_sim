@@ -14,14 +14,28 @@ class Body {
 
   collision(other) {
 
-    let mass = this.mass + other.mass;
-    this.color = this.mass < other.mass ? other.color : this.color;
-    this.velocity.x = (this.velocity.x * this.mass + other.velocity.x * other.mass) / mass;
-    this.velocity.y = (this.velocity.y * this.mass + other.velocity.y * other.mass) / mass;
-    this.position.x = (this.position.x * this.mass + other.position.x * other.mass) / mass;
-    this.position.y = (this.position.y * this.mass + other.position.y * other.mass) / mass;
-    this.radius = Math.cbrt(mass);
-    this.mass = mass;
+    if (this.mass < other.mass) {
+      this.color = other.color;
+    }
+    this.velocity.x =
+      (this.velocity.x * this.mass + other.velocity.x * other.mass) /
+      (this.mass + other.mass);
+    this.velocity.y =
+      (this.velocity.y * this.mass + other.velocity.y * other.mass) /
+      (this.mass + other.mass);
+    this.position.x = (this.position.x * this.mass + other.position.x * other.mass) / (this.mass + other.mass);
+    this.position.y = (this.position.y * this.mass + other.position.y * other.mass) / (this.mass + other.mass);
+    this.mass += other.mass;
+    this.radius = Math.cbrt(this.mass);
+
+    // let mass = this.mass + other.mass;
+    // this.color = this.mass < other.mass ? other.color : this.color;
+    // this.velocity.x = (this.velocity.x * this.mass + other.velocity.x * other.mass) / mass;
+    // this.velocity.y = (this.velocity.y * this.mass + other.velocity.y * other.mass) / mass;
+    // this.position.x = (this.position.x * this.mass + other.position.x * other.mass) / mass;
+    // this.position.y = (this.position.y * this.mass + other.position.y * other.mass) / mass;
+    // this.radius = Math.cbrt(mass);
+    // this.mass = mass;
   }
 
   toString() {

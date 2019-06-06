@@ -1,5 +1,4 @@
 class KeyboardHandler {
-  event = null;
 
   constructor(universe, mouse) {
     this.universe = universe;

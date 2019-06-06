@@ -7,7 +7,7 @@ class Universe {
     // this.bodies = {}; // access O(1)
   }
 
-  
+
   /*---------------------------------------------------------*\
  	|*							        Public Methods
  	\*---------------------------------------------------------*/
@@ -18,44 +18,51 @@ class Universe {
     this.bodies.push(new Body(position, velocity, mass));
   }
 
-  computeAttraction(fps) {
+  computeAttraction() {
 
-    let b = this.bodies;
-    for (let i in b) {
-      let force = new Vector2(0, 0);
+    for (let i = 0; i < this.bodies.length; i++) {
+      // let force = new Vector2(0, 0);
+      let fx = 0;
+      let fy = 0;
 
-      for (let j in b) {
-        if (b[i] !== b[j]) {
-          let dx = b[i].position.x - b[j].position.x;
-          let dy = b[i].position.y - b[j].position.y;
+      for (let j = 0; j < this.bodies.length; j++) {
+        if (j !== i) {
 
-          let distance = Math.sqrt(dx ** 2 + dy ** 2);
+          let dx = this.bodies[i].position.x - this.bodies[j].position.x;
+          let dy = this.bodies[i].position.y - this.bodies[j].position.y;
 
-          if (distance < b[i].radius + b[j].radius) {
-            b[i].collision(b[j]);
-            b.splice(j, 1);
+          let distance = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+
+          if (distance < this.bodies[i].radius + this.bodies[j].radius) {
+            this.bodies[i].collision(this.bodies[j]);
+            this.bodies.splice(j, 1);
+
           } else {
-            let magnitude = (this.G * b[i].mass * b[j].mass) / distance ** 2;
-            let next = magnitude / b[i].mass + magnitude / b[j].mass;
+            let magnitude = (this.G * (this.bodies[i].mass * this.bodies[j].mass)) / Math.pow(distance, 2);
+
+            let next = magnitude / this.bodies[i].mass + magnitude / this.bodies[j].mass;
 
             if (distance < next) {
-              b[i].collision(b[j]);
-              b.splice(j, 1);
+
+              this.bodies[i].collision(this.bodies[j]);
+              this.bodies.splice(j, 1);
+
             } else {
-              force.x -= Math.abs(magnitude * (dx / distance)) * Math.sign(dx);
-              force.y -= Math.abs(magnitude * (dy / distance)) * Math.sign(dy);
+              fx -= Math.abs(magnitude * (dx / distance)) * Math.sign(dx);
+              fy -= Math.abs(magnitude * (dy / distance)) * Math.sign(dy);
             }
           }
         }
       }
 
-      b[i].velocity.x += force.x / b[i].mass;
-      b[i].velocity.y += force.y / b[i].mass;
+      this.bodies[i].velocity.x += fx / this.bodies[i].mass;
+      this.bodies[i].velocity.y += fy / this.bodies[i].mass;
     }
 
-    for (let i in b) {
-      b[i].position.x += (b[i].velocity.x / 10) * (config.fps / fps);
-      b[i].position.y += (b[i].velocity.y / 10) * (config.fps / fps);
+    for (let i = 0; i < this.bodies.length; i++) {
+      this.bodies[i].position.x += (this.bodies[i].velocity.x / 10) * (60 / fps);
+      this.bodies[i].position.y += (this.bodies[i].velocity.y / 10) * (60 / fps);
+
     }
   }
 
@@ -75,7 +82,6 @@ class Universe {
       let vx = (distance * sin) / 50;
       let vy = (-distance * cos) / 50;
       this.bodies.push(new Body(new Position(x, y), new Vector2(vx, vy), 2));
-
     }
   }
 }
