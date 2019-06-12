@@ -1,25 +1,35 @@
 
-function sqaredAcceleration(j, x, y, r) {
-  let dAx = 0;
-  let dAy = 0;
+function mergeBodies(a, b) {
+  let mass = a.m + b.m;
+  let x = (a.x * a.m + b.x * b.m) / mass;
+  let y = (a.y * a.m + b.y * b.m) / mass;
+  let vx = (a.vx * a.m + b.vx * b.m) / mass;
+  let vy = (a.vy * a.m + b.vy * b.m) / mass;
+  let color = a.m > b.m ? a.color : b.color;
+  bodies.push(new Body(mass, x, y, vx, vy, color));
+}
 
-  for (let i = 0; i < prevBodies.length; i++) {
-    let other = prevBodies[i];
-    if (i !== j) {
-      let dx = other.x - x;
-      let dy = other.y - y;
-      let distance = Math.max(Math.sqrt(dx * dx + dy * dy), r + other.r);
+function distance(body, other) {
+  let dx = other.x - body.x;
+  let dy = other.y - body.y;
+  return  Math.sqrt(dx * dx + dy * dy);
+}
 
-      let acceleration = other.m / (distance * distance);
-      dAx += (acceleration * dx) / distance;
-      dAy += (acceleration * dy) / distance;
-    }
-  }
-  return [dAx, dAy];
+function checkForCollision(body, other) {
+  let a = !body.collision && !other.collision;
+  let b = distance(other, body) < other.r + body.r;
+  return a && b;
+}
+
+function updateTime() {
+  let thisLoop = new Date();
+  let thisFrameTime = thisLoop - lastLoop;
+  frameTime += (thisFrameTime - frameTime) / 20.0;
+  lastLoop = thisLoop;
 }
 
 
-function cluster(ix, iy, ivx, ivy) {
+function createCluster(ix, iy, ivx, ivy) {
   // let sign = Math.random() > 0.5 ? 1 : -1;
 
   let x = 0;

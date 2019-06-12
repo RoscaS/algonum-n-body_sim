@@ -44,7 +44,7 @@ function mouseUp(e) {
   if (inputs.rightClick) {
     inputs.rightClick = false;
     inputs.mouseDown = false;
-    cluster(inputs.clickX, inputs.clickY, vx, vy);
+    createCluster(inputs.clickX, inputs.clickY, vx, vy);
   } else {
     inputs.rightClick = false;
     inputs.mouseDown = false;
