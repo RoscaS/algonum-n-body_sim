@@ -30,9 +30,7 @@ function mouseMove(e) {
   if (inputs.ctrlDown && !inputs.mouseDown) {
     for (let i = 0; i < bodies.length; i++) {
       bodies[i].x += dx;
-      bodies[i].ox += dx;
       bodies[i].y += dy;
-      bodies[i].oy += dy;
     }
   }
 }
@@ -44,7 +42,7 @@ function mouseUp(e) {
   if (inputs.rightClick) {
     inputs.rightClick = false;
     inputs.mouseDown = false;
-    cluster(inputs.clickX, inputs.clickY, vx, vy);
+    createCluster(inputs.clickX, inputs.clickY, vx, vy);
   } else {
     inputs.rightClick = false;
     inputs.mouseDown = false;
@@ -90,13 +88,13 @@ function keydown(e) {
       inputs.ctrlDown = true;
       break;
     case "c":
-      tracking = !tracking;
+      conf.track = !conf.track;
       break;
     case "d":
       // clean(bodies); // delete bodies out of sight
       break;
     case "p":
-      // renderer.running = !renderer.running;
+      conf.running = !conf.running;
       break;
   }
 }
@@ -114,6 +112,8 @@ function eventResize() {
   canvas.height = window.innerHeight;
   background.width = window.innerWidth;
   background.height = window.innerHeight;
+  conf.centerX = window.innerWidth / 2;
+  conf.centerY = window.innerHeight / 2;
 }
 
 
