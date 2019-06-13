@@ -13,17 +13,18 @@ class Body {
     this.r = Math.cbrt(this.m) / 10;
     this.collision = false;
 
-    this.ox = 0;
-    this.oy = 0;
+    // this.ox = 0;
+    // this.oy = 0;
   }
 
-  update(x, y, dAx, dAy, h) {
-    this.vx = this.vx + dAx * h;
-    this.vy = this.vy + dAy * h;
+  update(aX, aY, h) {
+    // this.ox = this.x;
+    // this.oy = this.y;
+
+    this.vx = this.vx + aX * h;
+    this.vy = this.vy + aY * h;
     this.x += this.vx * h;
-    this.ox = x;
     this.y += this.vy * h;
-    this.oy = y;
   }
 
   clone() {

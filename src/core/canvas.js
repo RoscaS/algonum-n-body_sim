@@ -74,7 +74,7 @@ let trailOpacity = document.getElementById("trail-opacity");
 
 function initUI() {
   setInterval(function() {
-    fps.innerHTML = `Fps: ${(1000 / frameTime).toFixed(0)}`;
+    fps.innerHTML = `Fps: ${(1000 / frameTime).toFixed(2)}`;
     bodyCount.innerHTML = `Body count: ${bodies.length}`;
     initialMass.innerHTML = `Initial mass: ${conf.mass}`;
     timeStep.innerHTML = `Speed: x${conf.timeMultiplicator}`;

@@ -23,8 +23,11 @@ function checkForCollision(body, other) {
 
 function updateTime() {
   let thisLoop = new Date();
-  let thisFrameTime = thisLoop - lastLoop;
+  let thisFrameTime = thisLoop - lastLoop; // ms
+
+  // console.log(frameTime + "\t" + (thisFrameTime - frameTime));
   frameTime += (thisFrameTime - frameTime) / 20.0;
+  // frameTime += thisFrameTime - frameTime;
   lastLoop = thisLoop;
 }
 
@@ -37,7 +40,7 @@ function createCluster(ix, iy, ivx, ivy) {
   let vx = 0;
   let vy = 0;
 
-  for (let i = 0; i < 400; i++) {
+  for (let i = 0; i < 1000; i++) {
     let angle = Math.PI * 2 * Math.random();
     let dist = (Math.random() * 15) ** 2;
     let cos = Math.cos(angle);

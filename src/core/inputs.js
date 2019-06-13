@@ -30,9 +30,9 @@ function mouseMove(e) {
   if (inputs.ctrlDown && !inputs.mouseDown) {
     for (let i = 0; i < bodies.length; i++) {
       bodies[i].x += dx;
-      bodies[i].ox += dx;
+      // bodies[i].ox += dx;
       bodies[i].y += dy;
-      bodies[i].oy += dy;
+      // bodies[i].oy += dy;
     }
   }
 }
