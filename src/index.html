@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="../static/css/main.css" />
     <link rel="stylesheet" type="text/css" href="../static/css/menu.css" />
@@ -15,9 +13,14 @@
       href="../static/css/materialize.css"
     />
     <script src="../static/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+
+    <script src="libraries/vue.js"></script>
+    <script src="libraries/canvas-arrow.js"></script>
 
     <title>n-body problem</title>
   </head>
+
   <body>
     <div class="ui" id="app">
       <ul id="slide-out" class="sidenav">
@@ -91,5 +94,44 @@
     <script src="../static/materialize.min.js"></script>
 
     <script src="vueapp.js"></script>
+    <div id="app">
+      <canvas
+        id="canvas"
+        @mousedown="mouseDown($event)"
+        @mouseup="mouseUp($event)"
+        @mousemove="mouseMove($event)"
+        @wheel="mouseWheel($event)"
+      >
+      </canvas>
+      <div class="fps">
+        <p>fps: {{ fps }}</p>
+      </div>
+      <div class="metrics">
+        <p>Running: {{ running }}</p>
+        <p>Bodies: {{ bodiesCount }}</p>
+        <p>ZoomLevel: {{ zoomLevel }}</p>
+        <p>tracking: {{ tracking }}</p>
+        <p>initial mass: {{ initialMass }}</p>
+        <p>G: {{ gravityConstant }}</p>
+      </div>
+    </div>
+
+    <script src="core/config.js"></script>
+    <script src="utils/Helpers.js"></script>
+    <script src="utils/Color.js"></script>
+    <script src="utils/Vector2.js"></script>
+
+    <script src="core/input/InputHandler.js"></script>
+    <script src="core/input/MouseHandler.js"></script>
+    <script src="core/input/KeyboardHandler.js"></script>
+
+    <script src="core/render/Renderer.js"></script>
+    <script src="core/render/UniverseRenderer.js"></script>
+
+    <script src="core/objects/Body.js"></script>
+    <script src="core/objects/Universe.js"></script>
+
+    <script src="VueApp.js"></script>
+>>>>>>> refs/remotes/origin/master
   </body>
 </html>
