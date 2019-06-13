@@ -40,22 +40,26 @@ function createCluster(ix, iy, ivx, ivy) {
   let vx = 0;
   let vy = 0;
 
-  for (let i = 0; i < 1000; i++) {
+  let dCoef = 15;
+  let angleCoef = 1/2;
+  let number = 1000;
+
+  for (let i = 0; i < number; i++) {
     let angle = Math.PI * 2 * Math.random();
-    let dist = (Math.random() * 15) ** 2;
+    let dist = (Math.random() * dCoef) ** 2;
     let cos = Math.cos(angle);
     let sin = Math.sin(angle);
 
     x = ix + dist * cos;
     y = iy + dist * sin;
-    vx = ((dist * sin) / 2) + ivx;
-    vy = ((-dist * cos) / 2) + ivy;
+    vx = ((dist * sin * angleCoef) + ivx) ;
+    vy = ((-dist * cos * angleCoef) + ivy) ;
 
-    let m = 4000;
+    let m = conf.minMass * 2;
 
     bodies.push(new Body(m, x, y, vx, vy));
     if (i === 0) {
-      bodies.push(new Body(conf.mass, ix, iy, ivx, ivy));
+      // bodies.push(new Body(conf.mass, ix, iy, ivx, ivy));
     }
   }
 }
