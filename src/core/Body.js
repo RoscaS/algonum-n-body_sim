@@ -1,5 +1,6 @@
 let bodies = [];
 let prevBodies = [];
+let heavyest = null;
 
 class Body {
   constructor(m, x, y, vx, vy, color) {

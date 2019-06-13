@@ -1,6 +1,3 @@
-let tracking = false;
-let zoomLevel = 1;
-
 let frameTime = 0;
 let lastLoop = new Date();
 
@@ -9,12 +6,13 @@ function run() {
 
   draw();
   drawVelocityLine();
-  if (tracking) return;
+  if (!conf.running) return;
+  if (conf.track) track();
 
-  // prevBodies permet de garder une copie clean des particules
-  // pour appliquer les modifications lors du step partir des
-  // donnees non modifiees.
   for (let i = 0; i < bodies.length; i++) {
+    // prevBodies permet de garder une copie clean des particules
+    // pour appliquer les modifications lors du step partir des
+    // donnees non modifiees.
     prevBodies.push(bodies[i].clone());
   }
 
@@ -29,8 +27,6 @@ function run() {
       let other = bodies[j];
 
       if (checkForCollision(body, other)) {
-        body.collision = true;
-        other.collision = true;
         mergeBodies(body, other);
       }
     }
@@ -85,10 +81,6 @@ function takeStep(i) {
   body.x += h * body.vx;
   body.y += h * body.vy;
 }
-
-
-
-
 
 function init() {
   frameTime = 0;

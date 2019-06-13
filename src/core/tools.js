@@ -1,5 +1,19 @@
+function track() {
+  findHeavyestBody();
+  bodies.forEach(b => {
+    if (b !== heavyest) {
+      b.x += conf.centerX - heavyest.x;
+      b.y += conf.centerY - heavyest.y;
+    }
+  });
+
+  heavyest.x = conf.centerX;
+  heavyest.y = conf.centerY;
+}
 
 function mergeBodies(a, b) {
+  a.collision = true;
+  b.collision = true;
   let mass = a.m + b.m;
   let x = (a.x * a.m + b.x * b.m) / mass;
   let y = (a.y * a.m + b.y * b.m) / mass;
@@ -9,10 +23,18 @@ function mergeBodies(a, b) {
   bodies.push(new Body(mass, x, y, vx, vy, color));
 }
 
+function findHeavyestBody() {
+  bodies.forEach(b => {
+    if (heavyest === null || b.m > heavyest.m) {
+      heavyest = b;
+    }
+  });
+}
+
 function distance(body, other) {
   let dx = other.x - body.x;
   let dy = other.y - body.y;
-  return  Math.sqrt(dx * dx + dy * dy);
+  return Math.sqrt(dx * dx + dy * dy);
 }
 
 function checkForCollision(body, other) {
@@ -24,13 +46,9 @@ function checkForCollision(body, other) {
 function updateTime() {
   let thisLoop = new Date();
   let thisFrameTime = thisLoop - lastLoop; // ms
-
-  // console.log(frameTime + "\t" + (thisFrameTime - frameTime));
   frameTime += (thisFrameTime - frameTime) / 20.0;
-  // frameTime += thisFrameTime - frameTime;
   lastLoop = thisLoop;
 }
-
 
 function createCluster(ix, iy, ivx, ivy) {
   // let sign = Math.random() > 0.5 ? 1 : -1;
@@ -41,7 +59,7 @@ function createCluster(ix, iy, ivx, ivy) {
   let vy = 0;
 
   let dCoef = 15;
-  let angleCoef = 1/2;
+  let angleCoef = 1 / 2;
   let number = 1000;
 
   for (let i = 0; i < number; i++) {
@@ -52,8 +70,8 @@ function createCluster(ix, iy, ivx, ivy) {
 
     x = ix + dist * cos;
     y = iy + dist * sin;
-    vx = ((dist * sin * angleCoef) + ivx) ;
-    vy = ((-dist * cos * angleCoef) + ivy) ;
+    vx = dist * sin * angleCoef + ivx;
+    vy = -dist * cos * angleCoef + ivy;
 
     let m = conf.minMass * 2;
 
