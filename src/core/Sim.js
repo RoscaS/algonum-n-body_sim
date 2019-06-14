@@ -1,3 +1,7 @@
+// Objet: Algo Num projet final
+// Date: 14 juin 2019
+// Sol Rosca
+
 let frameTime = 0;
 let lastLoop = new Date();
 
@@ -64,8 +68,9 @@ function takeStep(i) {
     }
   }
 
-  fX *= conf.g;
-  fY *= conf.g;
+  body.fX = fX * conf.g;
+  body.fY = fY * conf.g;
+
 
   // Semi implicit Euler method (keeps system energy (almost))
   // The major change with standard Euler is the use of
@@ -73,8 +78,8 @@ function takeStep(i) {
   // the position.
 
   // Vi(t + h) = Vi(t) + h*F
-  body.vx += h * fX;
-  body.vy += h * fY;
+  body.vx += h * body.fX;
+  body.vy += h * body.fY;
 
   // Xi(t + h) = Xi(t) + hVi(t)
   body.x += h * body.vx;
@@ -85,7 +90,7 @@ function init() {
   frameTime = 0;
   lastLoop = new Date();
 
-  // initUI();
+  initUI();
   setInterval(run, 10);
 }
 

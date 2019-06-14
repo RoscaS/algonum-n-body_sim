@@ -1,5 +1,9 @@
+// Objet: Algo Num projet final
+// Date: 14 juin 2019
+// Sol Rosca
+
 function track() {
-  findHeavyestBody();
+  let heavyest = findHeavyestBody();
   bodies.forEach(b => {
     if (b !== heavyest) {
       b.x += conf.centerX - heavyest.x;
@@ -7,8 +11,13 @@ function track() {
     }
   });
 
-  heavyest.x = conf.centerX;
-  heavyest.y = conf.centerY;
+  try {
+    heavyest.x = conf.centerX;
+    heavyest.y = conf.centerY;
+  } catch (e) {
+    console.log("todo: Emit error (empty body list)")
+  }
+
 }
 
 function mergeBodies(a, b) {
@@ -24,11 +33,13 @@ function mergeBodies(a, b) {
 }
 
 function findHeavyestBody() {
+  let heavyest = null;
   bodies.forEach(b => {
     if (heavyest === null || b.m > heavyest.m) {
       heavyest = b;
     }
   });
+  return heavyest;
 }
 
 function distance(body, other) {

@@ -1,3 +1,8 @@
+// Objet: Algo Num projet final
+// Date: 14 juin 2019
+// Sol Rosca
+
+
 let inputs = {
   mouseDown: false,
   rightClick: false,

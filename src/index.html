@@ -19,7 +19,7 @@
     />
     <script src="../static/vue.js"></script>
 
-    <title>n-body problem</title>
+    <title>Projet Final Sol Rosca N-Body</title>
   </head>
   <body>
     <div class="ui" id="app">
@@ -36,6 +36,104 @@
 
         <div class="container">
           <li class="sidenav-content">
+            <div class="links">
+              <a @click="modalHowto()" class=" btn">
+                <i class="material-icons left medium">help</i>
+                How to
+              </a>
+              <a @click="modalAbout()" class=" btn">
+                <i class="material-icons left medium">info</i>
+                About
+              </a>
+            </div>
+
+            <div class="checkboxes">
+              <label>
+                <input
+                  v-if="!pause"
+                  type="checkbox"
+                  class="filled-in"
+                  checked="checked"
+                  @click="pause = !pause"
+                />
+                <input
+                  v-else
+                  type="checkbox"
+                  class="filled-in"
+                  @click="pause = !pause"
+                />
+                <span>Pause simulation</span>
+              </label>
+
+              <label>
+                <input
+                  v-if="info"
+                  type="checkbox"
+                  class="filled-in"
+                  checked="checked"
+                  @click="info = !info"
+                />
+                <input
+                  v-else
+                  type="checkbox"
+                  class="filled-in"
+                  @click="info = !info"
+                />
+                <span>Show info</span>
+              </label>
+
+              <label>
+                <input
+                  v-if="netForceVectors"
+                  type="checkbox"
+                  class="filled-in"
+                  checked="checked"
+                  @click="netForceVectors = !netForceVectors"
+                />
+                <input
+                  v-else
+                  type="checkbox"
+                  class="filled-in"
+                  @click="netForceVectors = !netForceVectors"
+                />
+                <span>Draw velocity</span>
+              </label>
+
+              <label>
+                <input
+                  v-if="velocityVectors"
+                  type="checkbox"
+                  class="filled-in"
+                  checked="checked"
+                  @click="velocityVectors = !velocityVectors"
+                />
+                <input
+                  v-else
+                  type="checkbox"
+                  class="filled-in"
+                  @click="velocityVectors = !velocityVectors"
+                />
+                <span>Draw net force</span>
+              </label>
+
+              <label>
+                <input
+                  v-if="track"
+                  type="checkbox"
+                  class="filled-in"
+                  checked="checked"
+                  @click="track = !track"
+                />
+                <input
+                  v-else
+                  type="checkbox"
+                  class="filled-in"
+                  @click="track = !track"
+                />
+                <span>Track heaviest body</span>
+              </label>
+            </div>
+
             <div class="sliders">
               <div class="sidenav-slider">
                 <label>Speed</label>
@@ -48,32 +146,22 @@
                     step="1"
                   />
                 </div>
-                <span class="range-value">{{timeMultiplicatorLabel}}</span>
+                <span class="range-value">{{timeMultiplicatorLabel}} x</span>
               </div>
+
               <div class="sidenav-slider">
                 <label>Trail</label>
                 <div class="range-field">
-                  <input type="range" min="0" max="3" step="1" />
+                  <input
+                    v-model="trailOpacity"
+                    type="range"
+                    min="0"
+                    max="3"
+                    step="1"
+                  />
                 </div>
-                <span class="range-value">{{trail}}</span>
+                <span class="range-value">{{trailOpacity}}</span>
               </div>
-              <div class="sidenav-slider">
-                <label>Verge</label>
-                <div class="range-field">
-                  <input type="range" min="0" max="100" />
-                </div>
-              </div>
-              <div class="sidenav-slider">
-                <label>Verge</label>
-                <div class="range-field">
-                  <input type="range" min="0" max="100" />
-                </div>
-              </div>
-            </div>
-
-            <div class="links">
-              <a href="#">Poule</a>
-              <a href="#">About</a>
             </div>
           </li>
         </div>
@@ -100,6 +188,99 @@
 
     <canvas id="canvas"></canvas>
     <canvas id="background"></canvas>
+
+    <div id="modal-howto" class="modal">
+      <div class="modal-content">
+        <h4>Howto</h4>
+        <p>TODO !</p>
+      </div>
+    </div>
+
+    <div id="modal-about" class="modal">
+      <div class="modal-content">
+        <h4>N-Body problem approximator</h4>
+        <ul>
+          <li>Sol Rosca</li>
+          <li>INF2b</li>
+        </ul>
+        <h5>Contextualisation</h5>
+        Travail final dans le cadre du cours d'algorithmes numériques.
+
+        <h5>Cahier des charges</h5>
+        <h6>Objectifs principaux</h6>
+        <ul>
+          <li style="color: green">Simulation fonctionnelle de 3 corps</li>
+          <li style="color: orangered">
+            Choix d'une configuration de base des corps.
+          </li>
+          <li style="color: green">
+            Possiblité de dynamiquement changer la masse d'un corp
+          </li>
+        </ul>
+        <h6>Objectifs secondaires</h6>
+        <ul>
+          <li style="color: green">n corps</li>
+          <li style="color: green">collisions</li>
+          <li style="color: green">interaction avancée</li>
+        </ul>
+
+        <p>
+          Il n'existe qu'une unique configuration de base autre que celle qui
+          permet d'ajouter un corps à la fois. Il s'aggit de celle générée en
+          cliquant droit. J'aurais souhaité faire plus comme par exemple trouver
+          les conditions initiales de systèmes bien connu mais je n'ai
+          malheureusement pas eu le temps de le faire pour cette itération.
+        </p>
+
+        <h5>Méthodologie</h5>
+        <p>
+          Pour le n-body problem, nous avons <i>i</i> corps situés en Xi avec
+          une vélocité Vi au temps 0 et nous souhaitons connaitre les Xi et les
+          Vi avenir. Mathématiquement nous cherchons une solution au problème:
+        </p>
+
+        <img src="https://i.imgur.com/DdKBK8G.png" alt="" />
+
+        <p>
+          Nous faisons face ici à une EDO et la plus simple façon de la résoudre
+          numériquement est d'utliser la methode d'Euler qui consiste à avancer
+          d'un petit pas <i>h</i> à chaque itération pour tout approximer de
+          façon linéaire. Il nous faut donc trouver une formule qui nous
+          permette de calculer l'état du système au temps <i>t + h</i> à partir
+          de l'état au temps <i>t</i> et ainsi de suite:
+        </p>
+
+        <img src="https://i.imgur.com/TLXPTZU.png" alt="">
+
+        <p>
+          Cette methode a une précision d'approximativement <b>O(h^2)</b>. Il vaut mieux l'éviter pour
+          une simulation qui tend à être réaliste mais dans le cadre de ce projet, elle fera le travail.
+        </p>
+
+        <p>
+          Ici, nous avons un problème de conservation de l'énergie totale du système, il est aisé de modifier
+          légèrement nos formules pour yield un meilleur résultat qui rend l'application plus réaliste en
+          utilisant une méthode dit "sympletic": la methode semi-oimplicide d'Euler.
+        </p>
+
+        <img src="https://i.imgur.com/oyMCpve.png" alt="">
+
+        <p>
+          La principale différence est uniquement le fait qu'à chaque itération, la vélocité est mise à jour
+          avant celle des positions. Ce simple changement n'améliore pas la précision globale mais permet
+          au système de se comporter de façon plus réaliste.
+        </p>
+
+        <h5>Conclusion</h5>
+        <p>
+          J'ai pris beacoup de plaisir à faire ce programme. J'aurais souhaité pouvoir le pauffiner encore et
+          encore, tant le sujet est interessant. C'est incroyablement jouissif d'implémenter des mécanismes
+          qui semble si complexes en quelques lignes de code tout en comprenant ce qu'il se passe et comment
+          influencer le tout.
+        </p>
+
+      </div>
+    </div>
 
     <script src="../static/canvas-arrow.js"></script>
     <script src="utils/utils.js"></script>

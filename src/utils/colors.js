@@ -1,3 +1,7 @@
+// Objet: Algo Num projet final
+// Date: 14 juin 2019
+// Sol Rosca
+
 const colors = [
   "#f9f33f",
   "#f92672",

@@ -1,6 +1,9 @@
+// Objet: Algo Num projet final
+// Date: 14 juin 2019
+// Sol Rosca
+
 let bodies = [];
 let prevBodies = [];
-let heavyest = null;
 
 class Body {
   constructor(m, x, y, vx, vy, color) {
@@ -10,10 +13,13 @@ class Body {
     this.vx = vx;
     this.vy = vy;
     this.color = color == null ? getColor() : color;
-    this.r = Math.log((Math.E) + m / conf.minMass) * conf.minMass /2;
+    // this.r = Math.log((Math.E) + m / conf.minMass);
     this.r = Math.cbrt(this.m) / 5;
-    // this.r = this.m / 500;
     this.collision = false;
+
+    this.fX = 0;
+    this.fY = 0;
+
   }
 
   update(aX, aY, h) {
