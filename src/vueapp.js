@@ -2,11 +2,26 @@ let app = new Vue({
   el: "#app",
 
   data: () => ({
-    timeMultiplicator: conf.timeMultiplicator,
+    settings: false,
+    timeMultiplicator: conf.timeMultiplicator +1,
+
+
+
+
+
+    timeMultiplicatorLabel: 1,
 
     // display
     massMarker: 0
   }),
+
+
+  watch: {
+    timeMultiplicator(old, value) {
+      conf.timeMultiplicator *= value < old ? 2 : 1 / 2;
+      this.timeMultiplicatorLabel = conf.timeMultiplicator;
+    },
+  },
 
   methods: {
     mouseDown(e) {},

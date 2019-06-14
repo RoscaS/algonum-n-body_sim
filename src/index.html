@@ -7,7 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="../static/css/main.css" />
     <link rel="stylesheet" type="text/css" href="../static/css/menu.css" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
 
     <link
       rel="stylesheet"
@@ -21,21 +24,38 @@
   <body>
     <div class="ui" id="app">
       <ul id="slide-out" class="sidenav">
+        <a
+          v-if="settings"
+          class="sidenav-close"
+          href="#"
+          data-target="slide-out"
+          @click="settings = false"
+        >
+          <i class="material-icons medium exit-menu-icon">navigate_before</i>
+        </a>
+
         <div class="container">
           <li class="sidenav-content">
             <div class="sliders">
               <div class="sidenav-slider">
                 <label>Speed</label>
                 <div class="range-field">
-                  <input v-model="timeMultiplicator" type="range" min="0" max="100" />
+                  <input
+                    v-model="timeMultiplicator"
+                    type="range"
+                    min="0"
+                    max="4"
+                    step="1"
+                  />
                 </div>
-                <span class="range-value">{{timeMultiplicator}}</span>
+                <span class="range-value">{{timeMultiplicatorLabel}}</span>
               </div>
               <div class="sidenav-slider">
-                <label>Verge</label>
+                <label>Trail</label>
                 <div class="range-field">
-                  <input type="range" min="0" max="100" />
+                  <input type="range" min="0" max="3" step="1" />
                 </div>
+                <span class="range-value">{{trail}}</span>
               </div>
               <div class="sidenav-slider">
                 <label>Verge</label>
@@ -59,12 +79,15 @@
         </div>
       </ul>
 
-
-
-      <a href="#" data-target="slide-out" class="sidenav-trigger">
-        <i class="material-icons">menu</i>
+      <a
+        v-if="!settings"
+        href="#"
+        data-target="slide-out"
+        class="sidenav-trigger"
+        @click="settings = true"
+      >
+        <i class="material-icons burger-icon">menu</i>
       </a>
-
     </div>
 
     <div id="info">
@@ -78,6 +101,7 @@
     <canvas id="canvas"></canvas>
     <canvas id="background"></canvas>
 
+    <script src="../static/canvas-arrow.js"></script>
     <script src="utils/utils.js"></script>
     <script src="utils/colors.js"></script>
     <script src="core/Body.js"></script>

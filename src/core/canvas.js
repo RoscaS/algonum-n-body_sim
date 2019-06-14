@@ -40,9 +40,19 @@ function drawLine(ax, ay, bx, by) {
   bgCtx.stroke();
 }
 
+function drawArrow(ax, ay, bx, by) {
+  bgCtx.lineWidth = 1;
+  bgCtx.beginPath();
+  bgCtx.arrow(ax, ay, bx, by, [0, 1, -10, 1, -10, 5]);
+  bgCtx.lineCap = "round";
+  bgCtx.strokeStyle = "#2299ff";
+  bgCtx.fillStyle = "#2299ff";
+  bgCtx.fill();
+}
+
 function drawVelocityLine() {
   if (inputs.mouseDown) {
-    drawLine(inputs.clickX, inputs.clickY, inputs.currentX, inputs.currentY);
+    drawArrow(inputs.clickX, inputs.clickY, inputs.currentX, inputs.currentY);
   }
 }
 
@@ -63,6 +73,7 @@ function draw() {
     bodies[i].draw(ctx);
   }
 
+  drawVelocityLine();
 }
 
 

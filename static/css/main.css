@@ -29,6 +29,17 @@ canvas {
   font-weight: normal;
 }
 
+.burger-icon {
+  z-index: 10 !important;
+  font-size: 36px !important;
+}
+
+.exit-menu-icon {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+}
+
 .sidenav-overlay {
   z-index: 0 !important;
 }
@@ -41,15 +52,21 @@ canvas {
   background-color: rgba(102, 217, 239, 0.17) !important;
 }
 
+.sidenav-overlay {
+  width: 0px;
+}
+
 .sidenav-content {
   display: flex;
   flex-direction: column;
   margin-top: 100px;
+  user-select: none;
 }
 
 .sidenav-content .links {
   margin-top: 50px;
   font-size: 1em;
+  user-select: none;
 }
 
 .sidenav-content .links a {
@@ -86,8 +103,11 @@ canvas {
 .range-value {
   position: absolute;
   margin-top: -10px;
+  margin-bottom: 0;
+  padding-bottom: 0;
   margin-left: 20px;
   user-select: none;
+  z-index: -1;
   /*max-width: 20px;*/
 }
 

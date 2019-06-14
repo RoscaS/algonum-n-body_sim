@@ -5,7 +5,6 @@ function run() {
   prevBodies = [];
 
   draw();
-  drawVelocityLine();
   if (!conf.running) return;
   if (conf.track) track();
 
@@ -86,7 +85,7 @@ function init() {
   frameTime = 0;
   lastLoop = new Date();
 
-  initUI();
+  // initUI();
   setInterval(run, 10);
 }
 
